@@ -41,18 +41,17 @@
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
   }
   .card-front {
     background-size: cover;
     background-position: center;
   }
   .card-back {
-    background: rgba(0, 0, 50, 0.85);
+    background: white;
+    color: black;
     transform: rotateY(180deg);
-    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
     text-align: center;
   }
 </style>
@@ -63,53 +62,52 @@
 
 <script>
   const questions = [
-    "하나님이 나에게 어떤 계획이 있다고 생각하나요?",
-    "오늘 감사한 일이 무엇인가요?",
-    "가장 좋아하는 성경 이야기는 무엇인가요?",
-    "기도할 때 어떤 마음이 드나요?",
-    "어려운 상황에서 하나님을 어떻게 찾나요?",
-    "교회에서 친구들과 어떤 시간을 보내나요?",
-    "예수님이 우리에게 가르쳐준 가장 중요한 것은?",
-    "내가 다른 사람을 도울 수 있는 방법은?",
-    "하나님께서 나를 특별하게 만드신 점은?",
-    "어떤 때 하나님이 나와 함께 하신다고 느끼나요?",
-    "예배 시간에 집중하려면 어떻게 해야 할까요?",
-    "내가 좋아하는 찬양은 무엇인가요?",
-    "하나님께 감사하는 마음을 어떻게 표현하나요?",
-    "성경 공부를 하면서 느낀 점은?",
-    "하나님께 어떤 소원을 빌어본 적 있나요?",
-    "내 삶에서 하나님이 하신 일 중 가장 기억에 남는 것은?",
-    "친구들과 함께 하나님을 믿는다는 것이 어떤 의미일까요?",
-    "하나님을 사랑한다는 것은 무엇일까요?",
-    "기도할 때 어떤 말을 하나요?",
-    "하나님이 우리를 어떻게 돌보시는지 이야기해보세요.",
-    "내가 가장 좋아하는 성경 인물은 누구인가요?",
-    "어려울 때 하나님께 도움을 청한 적 있나요?",
-    "하나님께서 우리에게 주신 가장 큰 선물은 무엇일까요?",
-    "내가 가진 재능을 하나님께 어떻게 사용할 수 있을까요?",
-    "하나님과 더 가까워지려면 무엇을 해야 할까요?",
-    "내가 감사하는 가족에 대해 이야기해보세요.",
-    "하나님이 나를 위해 언제 가장 힘이 되어 주셨나요?",
-    "하나님을 알게 된 이야기를 나눠보세요.",
-    "예수님이 나에게 어떤 친구가 되어 주나요?",
-    "성경 읽기가 어려울 때 어떻게 해야 할까요?",
-    "내가 하나님께 바라는 것은 무엇인가요?",
-    "하나님께서 세상을 만드신 이야기를 알고 있나요?",
-    "하나님과 대화하는 방법을 알고 있나요?",
-    "예수님처럼 친절하게 행동한 적 있나요?",
-    "하나님께 감사하는 노래를 불러본 적 있나요?",
-    "내가 하나님께 드리고 싶은 기도 제목은?",
-    "하나님이 내 마음을 어떻게 아시나요?",
-    "친구를 위해 기도해본 적 있나요?",
-    "하나님께서 나를 위해 준비하신 계획은 무엇일까요?",
-    "내가 교회에서 가장 좋아하는 활동은?",
-    "하나님께서 우리에게 주신 사랑에 대해 이야기해보세요.",
-    "기도를 통해 힘을 얻은 경험이 있나요?",
-    "내가 하나님께 배운 가장 중요한 교훈은 무엇인가요?",
-    "예수님이 우리를 위해 하신 일에 대해 생각해보세요."
+    "Q. 하나님이 나에게 어떤 계획이 있다고 생각하나요?",
+    "Q. 오늘 감사한 일이 무엇인가요?",
+    "Q. 가장 좋아하는 성경 이야기는 무엇인가요?",
+    "Q. 기도할 때 어떤 마음이 드나요?",
+    "Q. 어려운 상황에서 하나님을 어떻게 찾나요?",
+    "Q. 함께 섬기는 교사 중 감사한 분이 있다면 누구인가요?",
+    "Q. 예수님이 우리에게 가르쳐준 가장 중요한 것은?",
+    "Q. 내가 다른 사람을 도울 수 있는 방법은?",
+    "Q. 하나님께서 나를 특별하게 만드신 점은?",
+    "Q. 어떤 때 하나님이 나와 함께 하신다고 느끼나요?",
+    "Q. 예배 시간에 집중하려면 어떻게 해야 할까요?",
+    "Q. 내가 좋아하는 찬양은 무엇인가요?",
+    "Q. 하나님께 감사하는 마음을 어떻게 표현하나요?",
+    "Q. 성경 공부를 하면서 느낀 점은?",
+    "Q. 하나님께 어떤 소원을 빌어본 적 있나요?",
+    "Q. 내 삶에서 하나님이 하신 일 중 가장 기억에 남는 것은?",
+    "Q. 친구들과 함께 하나님을 믿는다는 것이 어떤 의미일까요?",
+    "Q. 하나님을 사랑한다는 것은 무엇일까요?",
+    "Q. 기도할 때 어떤 말을 하나요?",
+    "Q. 하나님이 우리를 어떻게 돌보시는지 이야기해보세요.",
+    "Q. 내가 가장 좋아하는 성경 인물은 누구인가요?",
+    "Q. 어려울 때 하나님께 도움을 청한 적 있나요?",
+    "Q. 하나님께서 우리에게 주신 가장 큰 선물은 무엇일까요?",
+    "Q. 내가 가진 재능을 하나님께 어떻게 사용할 수 있을까요?",
+    "Q. 하나님과 더 가까워지려면 무엇을 해야 할까요?",
+    "Q. 내가 감사하는 가족에 대해 이야기해보세요.",
+    "Q. 하나님이 나를 위해 언제 가장 힘이 되어 주셨나요?",
+    "Q. 하나님을 알게 된 이야기를 나눠보세요.",
+    "Q. 예수님이 나에게 어떤 친구가 되어 주나요?",
+    "Q. 성경 읽기가 어려울 때 어떻게 해야 할까요?",
+    "Q. 내가 하나님께 바라는 것은 무엇인가요?",
+    "Q. 하나님께서 세상을 만드신 이야기를 알고 있나요?",
+    "Q. 하나님과 대화하는 방법을 알고 있나요?",
+    "Q. 예수님처럼 친절하게 행동한 적 있나요?",
+    "Q. 하나님께 감사하는 노래를 불러본 적 있나요?",
+    "Q. 내가 하나님께 드리고 싶은 기도 제목은?",
+    "Q. 하나님이 내 마음을 어떻게 아시나요?",
+    "Q. 친구를 위해 기도해본 적 있나요?",
+    "Q. 하나님께서 나를 위해 준비하신 계획은 무엇일까요?",
+    "Q. 내가 교회에서 가장 좋아하는 활동은?",
+    "Q. 하나님께서 우리에게 주신 사랑에 대해 이야기해보세요.",
+    "Q. 기도를 통해 힘을 얻은 경험이 있나요?",
+    "Q. 내가 하나님께 배운 가장 중요한 교훈은 무엇인가요?",
+    "Q. 예수님이 우리를 위해 하신 일에 대해 생각해보세요."
   ];
 
-  // 45개의 사진 (Unsplash에서 선별, 고화질 자연/추상 이미지)
   const images = [
     "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=400&q=80",
@@ -128,57 +126,50 @@
     "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80"
+    "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=400&q=80"
   ];
 
   const container = document.getElementById('cardContainer');
 
-  for(let i=0; i < questions.length; i++) {
+  for(let i = 0; i < questions.length; i++) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    const inner = document.createElement('div');
-    inner.className = 'card-inner';
-
-    const front = document.createElement('div');
-    front.className = 'card-front';
-    front.style.backgroundImage = `url(${images[i]})`;
-
-    const back = document.createElement('div');
-    back.className = 'card-back';
-    back.textContent = questions[i];
-
-    inner.appendChild(front);
-    inner.appendChild(back);
-    card.appendChild(inner);
-    container.appendChild(card);
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-front" style="background-image: url('${images[i]}');"></div>
+        <div class="card-back">${questions[i]}</div>
+      </div>
+    `;
 
     card.addEventListener('click', () => {
       card.classList.toggle('flipped');
     });
+
+    container.appendChild(card);
   }
 </script>
 
