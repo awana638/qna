@@ -1,250 +1,186 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>운정교회 AWANA : 질문, 그리고 나눔</title>
-  <style>
-    body {
-      margin: 0; padding: 20px;
-      font-family: '나눔고딕', NanumGothic, sans-serif;
-      background: #f0f0f0;
-      display: flex; justify-content: center; align-items: center;
-      min-height: 100vh;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 1200px;
-    }
-    .card {
-      perspective: 1000px;
-      cursor: pointer;
-      height: 280px;
-    }
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.7s;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-    .card-front, .card-back {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 12px;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-      color: white;
-      font-size: 1rem;
-      text-align: center;
-      line-height: 1.4;
-      box-sizing: border-box;
-      user-select: none;
-    }
-    .card-front {
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.75);
-    }
-    .card-back {
-      background-color: #222;
-      transform: rotateY(180deg);
-      font-weight: 600;
-      padding: 20px;
-      box-shadow: inset 0 0 20px #000000cc;
-      color: #fff;
-      font-size: 1.05rem;
-      overflow-y: auto;
-    }
-    /* 스크롤바 간단 커스텀 */
-    .card-back::-webkit-scrollbar {
-      width: 6px;
-    }
-    .card-back::-webkit-scrollbar-thumb {
-      background-color: rgba(255,255,255,0.3);
-      border-radius: 3px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>운정교회 AWANA 질문 카드</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #f0f0f0;
+    margin: 20px;
+  }
+  #cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  .card {
+    width: 200px; height: 260px;
+    perspective: 800px;
+    cursor: pointer;
+  }
+  .card-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .card.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .card-front {
+    background-size: cover;
+    background-position: center;
+  }
+  .card-back {
+    background: rgba(0, 0, 50, 0.85);
+    transform: rotateY(180deg);
+    color: #fff;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
-  <div class="container" id="cardContainer"></div>
 
-  <script>
-    const questions = [
-      "Q. 하나님을 어떻게 만나고 있나요?",
-      "Q. 기도할 때 가장 기억에 남는 경험은 무엇인가요?",
-      "Q. 신앙 생활에서 가장 어려운 점은 무엇인가요?",
-      "Q. 예수님을 닮아가려면 어떤 노력이 필요할까요?",
-      "Q. 성경에서 가장 좋아하는 구절은 무엇인가요?",
-      "Q. 교회에서 가장 즐거운 순간은 언제인가요?",
-      "Q. 하나님께 감사한 마음을 표현하는 방법은 무엇인가요?",
-      "Q. 오늘 하루 중 가장 기뻤던 순간은 언제였나요?",
-      "Q. 가족과 함께하는 시간이 어떤 의미가 있나요?",
-      "Q. 나의 신앙생활을 더 풍성하게 하는 방법은 무엇일까요?",
-      "Q. 최근에 나를 감동시킨 찬양 가사는 무엇인가요?",
-      "Q. 내 삶에서 하나님이 어떻게 역사하고 계신가요?",
-      "Q. 지금 가장 이루고 싶은 목표는 무엇인가요?",
-      "Q. 나만의 기도 습관이나 방법이 있나요?",
-      "Q. 최근에 하나님께서 도와주셨다고 느낀 적이 있나요?",
-      "Q. 어려운 일이 있을 때 어떤 말씀을 떠올리나요?",
-      "Q. 내가 좋아하는 성경 이야기나 인물이 있나요?",
-      "Q. 친구들에게 전하고 싶은 신앙의 메시지가 있나요?",
-      "Q. 예수님을 닮고 싶다면 어떤 모습을 닮고 싶나요?",
-      "Q. 나의 신앙을 키우기 위해 어떤 노력을 하나요?",
-      "Q. 교회 공동체에서 내가 맡고 싶은 역할은 무엇인가요?",
-      "Q. 하나님께서 나에게 주신 특별한 은사는 무엇이라고 생각하나요?",
-      "Q. 기도할 때 가장 감사한 순간은 언제였나요?",
-      "Q. 신앙을 통해 만난 좋은 친구가 있나요?",
-      "Q. 내가 좋아하는 성경 속 동물이나 자연 요소가 있나요?",
-      "Q. 하루를 시작할 때 주로 하는 기도는 무엇인가요?",
-      "Q. 내가 가장 좋아하는 교회 행사나 활동은 무엇인가요?",
-      "Q. 신앙 생활을 통해 내가 얻은 가장 큰 기쁨은 무엇인가요?",
-      "Q. 하나님과의 관계를 깊게 하기 위해 앞으로 하고 싶은 일은 무엇인가요?",
-      "Q. 오늘 이 자리에서 나누고 싶은 감사의 마음을 표현해 보세요.",
-      "Q. 예배드릴 때 가장 기뻤던 순간은 언제인가요?",
-      "Q. 성경 공부를 하면서 새롭게 알게 된 점은 무엇인가요?",
-      "Q. 힘들 때 위로가 되는 성경 말씀은 무엇인가요?",
-      "Q. 교회 친구들과 함께한 기억 중 가장 행복한 순간은 언제인가요?",
-      "Q. 하나님께서 주신 소명을 어떻게 느끼고 있나요?",
-      "Q. 일상에서 하나님을 경험하는 방법은 무엇인가요?",
-      "Q. 신앙 생활 중 가장 감사한 순간은 무엇인가요?",
-      "Q. 앞으로의 신앙 여정에서 바라는 점은 무엇인가요?",
-      "Q. 자신만의 특별한 찬양 곡이 있나요? 있다면 무엇인가요?",
-      "Q. 하나님께서 내 삶에서 일하셨다고 느낀 순간을 나누어 주세요.",
-      "Q. 다른 사람에게 신앙을 어떻게 나누고 있나요?",
-      "Q. 예수님께 감사한 마음을 표현하는 방법은 무엇인가요?",
-      "Q. 신앙이 내 삶에 가져온 변화는 무엇인가요?",
-      "Q. 오늘 이 시간 나누고 싶은 기도 제목이 있나요?"
-    ];
+<div id="cardContainer"></div>
 
-    const images = [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80"
-    ];
+<script>
+  const questions = [
+    "하나님이 나에게 어떤 계획이 있다고 생각하나요?",
+    "오늘 감사한 일이 무엇인가요?",
+    "가장 좋아하는 성경 이야기는 무엇인가요?",
+    "기도할 때 어떤 마음이 드나요?",
+    "어려운 상황에서 하나님을 어떻게 찾나요?",
+    "교회에서 친구들과 어떤 시간을 보내나요?",
+    "예수님이 우리에게 가르쳐준 가장 중요한 것은?",
+    "내가 다른 사람을 도울 수 있는 방법은?",
+    "하나님께서 나를 특별하게 만드신 점은?",
+    "어떤 때 하나님이 나와 함께 하신다고 느끼나요?",
+    "예배 시간에 집중하려면 어떻게 해야 할까요?",
+    "내가 좋아하는 찬양은 무엇인가요?",
+    "하나님께 감사하는 마음을 어떻게 표현하나요?",
+    "성경 공부를 하면서 느낀 점은?",
+    "하나님께 어떤 소원을 빌어본 적 있나요?",
+    "내 삶에서 하나님이 하신 일 중 가장 기억에 남는 것은?",
+    "친구들과 함께 하나님을 믿는다는 것이 어떤 의미일까요?",
+    "하나님을 사랑한다는 것은 무엇일까요?",
+    "기도할 때 어떤 말을 하나요?",
+    "하나님이 우리를 어떻게 돌보시는지 이야기해보세요.",
+    "내가 가장 좋아하는 성경 인물은 누구인가요?",
+    "어려울 때 하나님께 도움을 청한 적 있나요?",
+    "하나님께서 우리에게 주신 가장 큰 선물은 무엇일까요?",
+    "내가 가진 재능을 하나님께 어떻게 사용할 수 있을까요?",
+    "하나님과 더 가까워지려면 무엇을 해야 할까요?",
+    "내가 감사하는 가족에 대해 이야기해보세요.",
+    "하나님이 나를 위해 언제 가장 힘이 되어 주셨나요?",
+    "하나님을 알게 된 이야기를 나눠보세요.",
+    "예수님이 나에게 어떤 친구가 되어 주나요?",
+    "성경 읽기가 어려울 때 어떻게 해야 할까요?",
+    "내가 하나님께 바라는 것은 무엇인가요?",
+    "하나님께서 세상을 만드신 이야기를 알고 있나요?",
+    "하나님과 대화하는 방법을 알고 있나요?",
+    "예수님처럼 친절하게 행동한 적 있나요?",
+    "하나님께 감사하는 노래를 불러본 적 있나요?",
+    "내가 하나님께 드리고 싶은 기도 제목은?",
+    "하나님이 내 마음을 어떻게 아시나요?",
+    "친구를 위해 기도해본 적 있나요?",
+    "하나님께서 나를 위해 준비하신 계획은 무엇일까요?",
+    "내가 교회에서 가장 좋아하는 활동은?",
+    "하나님께서 우리에게 주신 사랑에 대해 이야기해보세요.",
+    "기도를 통해 힘을 얻은 경험이 있나요?",
+    "내가 하나님께 배운 가장 중요한 교훈은 무엇인가요?",
+    "예수님이 우리를 위해 하신 일에 대해 생각해보세요."
+  ];
 
-    // 중복 제거 및 45장 엄선 (직접 셀렉션으로 교체했습니다)
-    const uniqueImages = [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80"
-    ];
+  // 45개의 사진 (Unsplash에서 선별, 고화질 자연/추상 이미지)
+  const images = [
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80"
+  ];
 
-    // 45개 질문과 45개 이미지 매칭하여 카드 생성
-    const container = document.getElementById('cardContainer');
+  const container = document.getElementById('cardContainer');
 
-    for(let i=0; i<45; i++){
-      const card = document.createElement('div');
-      card.className = 'card';
+  for(let i=0; i < questions.length; i++) {
+    const card = document.createElement('div');
+    card.className = 'card';
 
-      const inner = document.createElement('div');
-      inner.className = 'card-inner';
+    const inner = document.createElement('div');
+    inner.className = 'card-inner';
 
-      const front = document.createElement('div');
-      front.className = 'card-front';
-      front.style.backgroundImage = `url(${uniqueImages[i]})`;
+    const front = document.createElement('div');
+    front.className = 'card-front';
+    front.style.backgroundImage = `url(${images[i]})`;
 
-      const back = document.createElement('div');
-      back.className = 'card-back';
-      back.textContent = questions[i];
+    const back = document.createElement('div');
+    back.className = 'card-back';
+    back.textContent = questions[i];
 
-      inner.appendChild(front);
-      inner.appendChild(back);
-      card.appendChild(inner);
-      container.appendChild(card);
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+    container.appendChild(card);
 
-      card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-      });
-    }
-  </script>
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+  }
+</script>
+
 </body>
 </html>
