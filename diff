@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>어떤대화: 크리스천 에디션</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+    .card {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .card-inner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+    .card-back {
+      background: white;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body>
+  <h1>어떤대화: 질문 카드</h1>
+  <div class="card-grid" id="cardGrid"></div>
+
+  <script>
+    const questions = [
+      {
+        text: "요즘 하나님과의 관계는 어떤가요?",
+        image: "https://source.unsplash.com/featured/?church"
+      },
+      {
+        text: "가장 감사했던 순간은 언제였나요?",
+        image: "https://source.unsplash.com/featured/?gratitude"
+      },
+      {
+        text: "가족과의 관계는 요즘 어떤가요?",
+        image: "https://source.unsplash.com/featured/?family"
+      }
+    ];
+
+    const grid = document.getElementById("cardGrid");
+
+    questions.forEach((q) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-front" style="background-image: url('${q.image}');"></div>
+          <div class="card-back">${q.text}</div>
+        </div>
+      `;
+      card.addEventListener("click", () => {
+        card.classList.toggle("flipped");
+      });
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
