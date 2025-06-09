@@ -6,108 +6,181 @@
   <title>운정교회 AWANA : 질문, 그리고 나눔</title>
   <style>
     body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
+      margin: 0; padding: 20px;
+      font-family: '나눔고딕', NanumGothic, sans-serif;
+      background: #f0f0f0;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh;
     }
-    h1 {
-      text-align: center;
-      padding: 20px;
-      background: #333;
-      color: white;
-      user-select: none;
-    }
-    .grid {
+    .container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 15px;
-      padding: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      width: 100%;
       max-width: 1200px;
-      margin: 0 auto;
     }
     .card {
       perspective: 1000px;
-      width: 100%;
-      height: 320px;
       cursor: pointer;
     }
     .card-inner {
       position: relative;
       width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.8s;
+      padding-top: 130%;
       transform-style: preserve-3d;
+      transition: transform 0.7s;
       border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
+    .card:hover .card-inner,
     .card.flipped .card-inner {
       transform: rotateY(180deg);
     }
-    .card-front,
-    .card-back {
+    .card-front, .card-back {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 12px;
       backface-visibility: hidden;
-      border-radius: 12px;
-      overflow: hidden;
-      user-select: none;
-    }
-    .card-front img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      border-radius: 12px;
-    }
-    .card-back {
-      background: #333;
-      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      font-size: 16px;
-      transform: rotateY(180deg);
+      padding: 15px;
+      color: white;
+      font-size: 1.1rem;
+      text-align: center;
       line-height: 1.4;
       box-sizing: border-box;
+      user-select: none;
+    }
+    .card-front {
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.75);
+    }
+    .card-back {
+      background-color: #1a1a1a;
+      transform: rotateY(180deg);
+      font-weight: 600;
+      padding: 20px;
+      box-shadow: inset 0 0 20px #00000080;
     }
   </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll(".card").forEach(function (card) {
-        card.addEventListener("click", function () {
-          card.classList.toggle("flipped");
-        });
-      });
-    });
-  </script>
 </head>
 <body>
-  <h1>운정교회 AWANA : 질문, 그리고 나눔</h1>
-  <div class="grid">
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="질문 배경1"></div><div class="card-back">Q. 오늘 하루 중 하나님을 느낀 순간이 있었나요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="질문 배경2"></div><div class="card-back">Q. 요즘 자주 떠오르는 생각은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80" alt="질문 배경3"></div><div class="card-back">Q. 내가 기도할 때 자주 나오는 말은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=800&q=80" alt="질문 배경4"></div><div class="card-back">Q. 조용히 혼자 있고 싶을 때, 어디로 가고 싶은가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="질문 배경5"></div><div class="card-back">Q. 가족 중 가장 감사한 사람은 누구인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80" alt="질문 배경6"></div><div class="card-back">Q. 최근에 누군가에게 친절을 베푼 기억이 있나요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="질문 배경7"></div><div class="card-back">Q. 기도 응답을 받은 경험이 있다면 나눠주세요.</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=800&q=80" alt="질문 배경8"></div><div class="card-back">Q. 친구들과의 대화에서 즐거웠던 순간은 언제인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80" alt="질문 배경9"></div><div class="card-back">Q. 나를 웃게 하는 일은 어떤 것이 있나요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=80" alt="질문 배경10"></div><div class="card-back">Q. 최근 감사했던 일 세 가지를 말해볼까요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80" alt="질문 배경11"></div><div class="card-back">Q. 성경에서 가장 감명 깊었던 구절은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80" alt="질문 배경12"></div><div class="card-back">Q. 최근에 경험한 작은 기적이 있나요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80" alt="질문 배경13"></div><div class="card-back">Q. 내가 가장 감사하는 일은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" alt="질문 배경14"></div><div class="card-back">Q. 예배 중 가장 기억에 남는 순간은 언제였나요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80" alt="질문 배경15"></div><div class="card-back">Q. 신앙생활을 하며 힘들었던 적이 있나요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="질문 배경16"></div><div class="card-back">Q. 내가 가장 좋아하는 찬양 곡은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80" alt="질문 배경17"></div><div class="card-back">Q. 교회에서 가장 행복했던 기억을 나눠주세요.</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80" alt="질문 배경18"></div><div class="card-back">Q. 요즘 나의 기도 제목은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1486308510493-cb8454a891cd?auto=format&fit=crop&w=800&q=80" alt="질문 배경19"></div><div class="card-back">Q. 신앙을 통해 달라진 점이 있다면 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=800&q=80" alt="질문 배경20"></div><div class="card-back">Q. 나의 인생에 가장 큰 영향을 준 성경 인물은 누구인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1499988924160-cbc10a3580a5?auto=format&fit=crop&w=800&q=80" alt="질문 배경21"></div><div class="card-back">Q. 요즘 스트레스를 푸는 방법은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80" alt="질문 배경22"></div><div class="card-back">Q. 하나님께 감사한 마음을 표현하는 방법은 무엇인가요?</div></div></div>
-    <div class="card"><div class="card-inner"><div class="card-front"><img src="https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80" alt="질문 배경23"></div><div class="card-back">Q. 오늘 하루 중 가장 기뻤던
+  <div class="container" id="cardContainer">
+    <!-- 카드들이 여기 들어갑니다 -->
+  </div>
+
+  <script>
+    // 45개 질문 목록
+    const questions = [
+      "Q. 하나님을 어떻게 만나고 있나요?",
+      "Q. 기도할 때 가장 기억에 남는 경험은 무엇인가요?",
+      "Q. 신앙 생활에서 가장 어려운 점은 무엇인가요?",
+      "Q. 예수님을 닮아가려면 어떤 노력이 필요할까요?",
+      "Q. 성경에서 가장 좋아하는 구절은 무엇인가요?",
+      "Q. 교회에서 가장 즐거운 순간은 언제인가요?",
+      "Q. 하나님께 감사한 마음을 표현하는 방법은 무엇인가요?",
+      "Q. 오늘 하루 중 가장 기뻤던 순간은 언제였나요?",
+      "Q. 가족과 함께하는 시간이 어떤 의미가 있나요?",
+      "Q. 나의 신앙생활을 더 풍성하게 하는 방법은 무엇일까요?",
+      "Q. 최근에 나를 감동시킨 찬양 가사는 무엇인가요?",
+      "Q. 내 삶에서 하나님이 어떻게 역사하고 계신가요?",
+      "Q. 지금 가장 이루고 싶은 목표는 무엇인가요?",
+      "Q. 나만의 기도 습관이나 방법이 있나요?",
+      "Q. 최근에 하나님께서 도와주셨다고 느낀 적이 있나요?",
+      "Q. 어려운 일이 있을 때 어떤 말씀을 떠올리나요?",
+      "Q. 내가 좋아하는 성경 이야기나 인물이 있나요?",
+      "Q. 친구들에게 전하고 싶은 신앙의 메시지가 있나요?",
+      "Q. 예수님을 닮고 싶다면 어떤 모습을 닮고 싶나요?",
+      "Q. 나의 신앙을 키우기 위해 어떤 노력을 하나요?",
+      "Q. 교회 공동체에서 내가 맡고 싶은 역할은 무엇인가요?",
+      "Q. 하나님께서 나에게 주신 특별한 은사는 무엇이라고 생각하나요?",
+      "Q. 기도할 때 가장 감사한 순간은 언제였나요?",
+      "Q. 신앙을 통해 만난 좋은 친구가 있나요?",
+      "Q. 내가 좋아하는 성경 속 동물이나 자연 요소가 있나요?",
+      "Q. 하루를 시작할 때 주로 하는 기도는 무엇인가요?",
+      "Q. 내가 가장 좋아하는 교회 행사나 활동은 무엇인가요?",
+      "Q. 신앙 생활을 통해 내가 얻은 가장 큰 기쁨은 무엇인가요?",
+      "Q. 하나님과의 관계를 깊게 하기 위해 앞으로 하고 싶은 일은 무엇인가요?",
+      "Q. 오늘 이 자리에서 나누고 싶은 감사의 마음을 표현해 보세요.",
+      "Q. 예배드릴 때 가장 기뻤던 순간은 언제인가요?",
+      "Q. 성경 공부를 하면서 새롭게 알게 된 점은 무엇인가요?",
+      "Q. 힘들 때 위로가 되는 성경 말씀은 무엇인가요?",
+      "Q. 교회 친구들과 함께한 기억 중 가장 행복한 순간은 언제인가요?",
+      "Q. 하나님께서 주신 소명을 어떻게 느끼고 있나요?",
+      "Q. 일상에서 하나님을 경험하는 방법은 무엇인가요?",
+      "Q. 신앙 생활 중 가장 감사한 순간은 무엇인가요?",
+      "Q. 앞으로의 신앙 여정에서 바라는 점은 무엇인가요?",
+      "Q. 자신만의 특별한 찬양 곡이 있나요? 있다면 무엇인가요?",
+      "Q. 하나님께서 내 삶에서 일하셨다고 느낀 순간을 나누어 주세요.",
+      "Q. 다른 사람에게 신앙을 어떻게 나누고 있나요?",
+      "Q. 예수님께 감사한 마음을 표현하는 방법은 무엇인가요?",
+      "Q. 신앙이 내 삶에 가져온 변화는 무엇인가요?",
+      "Q. 오늘 이 시간 나누고 싶은 기도 제목이 있나요?"
+    ];
+
+    // 인물이 없는 자연/풍경/사물 사진 URL 45개 (unsplash)
+    const images = [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80"
+    ];
+
+    const container = document.getElementById('cardContainer');
+
+    for(let i = 0; i < questions.length; i++) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-front" style="background-image: url('${images[i % images.length]}');"></div>
+          <div class="card-back">${questions[i]}</div>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        card.classList.toggle('flipped');
+      });
+      container.appendChild(card);
+    }
+  </script>
+</body>
+</html>
