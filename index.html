@@ -1,216 +1,235 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>운정교회 AWANA : 질문, 그리고 나눔</title>
-  <style>
-    body {
-      margin: 0; padding: 20px;
-      font-family: '나눔고딕', NanumGothic, sans-serif;
-      background: #f0f0f0;
-      display: flex; justify-content: center; align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-    h1 {
-      margin-bottom: 20px;
-      color: #333;
-      font-weight: 700;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 1200px;
-    }
-    .card {
-      perspective: 1000px;
-      cursor: pointer;
-    }
-    .card-inner {
-      position: relative;
-      width: 200px;
-      height: 260px;
-      transform-style: preserve-3d;
-      transition: transform 0.7s;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    .card:hover .card-inner,
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-    .card-front, .card-back {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 12px;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-      font-size: 1.1rem;
-      text-align: center;
-      line-height: 1.4;
-      box-sizing: border-box;
-      user-select: none;
-    }
-    .card-front {
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.75);
-      color: white;
-    }
-    .card-back {
-      background-color: #fff;  /* 흰 배경 */
-      color: #333;             /* 어두운 텍스트 */
-      transform: rotateY(180deg);
-      font-weight: 600;
-      padding: 20px;
-      box-shadow: inset 0 0 20px #00000020;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>운정교회 AWANA : 질문, 그리고 나눔</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    background: #f0f0f0;
+    font-family: "Noto Sans KR", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    margin: 20px 0 10px 0;
+    font-weight: 700;
+    font-size: 28px;
+    color: #222;
+    user-select: none;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    max-width: 1200px;
+    width: 95%;
+    padding-bottom: 40px;
+  }
+
+  .card {
+    width: 180px;
+    height: 240px;
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background: transparent;
+    position: relative;
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 14px;
+  }
+
+  .card.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .card-back {
+    background-color: white;
+    color: #111;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 1.4;
+    transform: rotateY(180deg);
+    overflow-y: auto;
+    user-select: text;
+  }
+
+  /* 스크롤바 커스텀 */
+  .card-back::-webkit-scrollbar {
+    width: 6px;
+  }
+  .card-back::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 3px;
+  }
+</style>
 </head>
 <body>
-
   <h1>운정교회 AWANA : 질문, 그리고 나눔</h1>
-  
-  <div class="container" id="cardContainer"></div>
+  <div class="container" id="card-container"></div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
+  <script>
     const questions = [
-      "Q. 하나님이 나에게 어떤 계획이 있다고 생각하나요?",
-      "Q. 오늘 감사한 일이 무엇인가요?",
-      "Q. 지금 가지고 있는 꿈이 있나요?",
-      "Q. 기도할 때 어떤 마음이 드나요?",
-      "Q. 최근에 가장 즐겁게 보낸 하루는 어땠나요?",
-      "Q. 함께 섬기는 교사 중 감사한 분이 있다면 누구인가요?",
-      "Q. 좋아하는 음식이나 간식은 무엇인가요?",
-      "Q. 내가 다른 사람을 도울 수 있는 방법은?",
-      "Q. 하나님께서 나를 특별하게 만드신 점은?",
-      "Q. 어떤 때 하나님이 나와 함께 하신다고 느끼나요?",
-      "Q. 주말에는 보통 무엇을 하나요?",
-      "Q. 내가 좋아하는 찬양은 무엇인가요?",
-      "Q. 하나님께 감사하는 마음을 어떻게 표현하나요?",
-      "Q. 최근에 본 영화나 드라마 중 기억에 남는 게 있나요?",
-      "Q. 주위에 전도하고 싶은 사람이 있나요?",
-      "Q. 내 삶에서 하나님이 하신 일 중 가장 기억에 남는 것은?",
-      "Q. 가장 좋아하는 계절과 이유는 무엇인가요?",
-      "Q. 교회안에서 섬기고 싶은 사역이 있나요?",
-      "Q. 기도할 때 어떤 말을 하나요?",
-      "Q. 하나님이 우리를 어떻게 돌보시는지 이야기해보세요.",
-      "Q. 최근에 해 본 새로운 취미가 있나요?",
-      "Q. 하루 중 가장 많이 시간을 쏟는 일은 무었인가요?",
-      "Q. 어려울 때 하나님께 도움을 청한 적 있나요?",
-      "Q. 요즘 가장 관심 있는 주제는 무엇인가요?",
-      "Q. 내가 가진 재능을 하나님께 어떻게 사용할 수 있을까요?",
-      "Q. 내가 감사하는 가족에 대해 이야기해보세요.",
-      "Q. 최근에 가 본 장소 중 좋았던 곳은 어디인가요?",
-      "Q. 하나님을 알게 된 이야기를 나눠보세요.",
-      "Q. 예수님이 나에게 어떤 친구가 되어 주나요?",
-      "Q. 성경 읽기가 어려울 때 어떻게 해야 할까요?",
-      "Q. 내가 하나님께 바라는 것은 무엇인가요?",
-      "Q. 좋아하는 노래나 음악 장르는 무엇인가요?",
-      "Q. 하나님과 대화하는 방법을 알고 있나요?",
-      "Q. 예수님처럼 친절하게 행동한 적 있나요?",
-      "Q. 좋아하는 운동이나 활동이 있나요?",
-      "Q. 내가 하나님께 드리고 싶은 기도 제목은?",
-      "Q. 최근에 읽은 책이나 기사 중 기억에 남는 것이 있나요?",
-      "Q. 하나님이 내 마음을 어떻게 아시나요?",
-      "Q. 가장 기억에 남는 여행지는 어디인가요?",
-      "Q. 고민이 생기면 어떻게 해결하나요?",
-      "Q. 내가 교회에서 가장 좋아하는 활동은?",
-      "Q. 좋아하는 동물이나 반려동물이 있나요?",
-      "Q. 하나님께서 우리에게 주신 사랑에 대해 이야기해보세요.",
-      "Q. 기도를 통해 힘을 얻은 경험이 있나요?",
-      "Q. 일주일 동안 다른 사람으로 살 수 있다면 누구로 살고 싶나?",
-      "Q. 주중에 가장 행복했던 순간은 언제인가요?",
-      "Q. 내일 예수님이 다시 오신다면 오늘 무엇을 하고 싶나요?"
+      "하나님은 어떤 분일까요?",
+      "내가 가장 좋아하는 성경 이야기는?",
+      "기도할 때 어떤 마음이 드나요?",
+      "예수님은 왜 우리를 사랑하실까요?",
+      "나의 작은 감사는 무엇인가요?",
+      "성경에서 가장 기억에 남는 인물은 누구인가요?",
+      "교회에 가면 어떤 기분이 드나요?",
+      "내가 좋아하는 찬양은 어떤 곡인가요?",
+      "친구에게 사랑을 어떻게 표현할까요?",
+      "하나님께 가장 감사한 일은 무엇인가요?",
+      "어떤 순간에 하나님을 느껴본 적 있나요?",
+      "내가 도와줄 수 있는 사람은 누구인가요?",
+      "용서란 무엇일까요?",
+      "내 마음을 하나님께 어떻게 전할까요?",
+      "하나님께서 내게 주신 선물은 무엇일까요?",
+      "기도를 언제 어떻게 하나요?",
+      "예수님이 나에게 해주신 일은 무엇인가요?",
+      "성경책을 읽을 때 느끼는 점은 무엇인가요?",
+      "어떻게 친구들과 더 잘 지낼 수 있을까요?",
+      "내가 꿈꾸는 좋은 세상은 어떤 모습인가요?",
+      "하나님께서 우리에게 주신 계명은 무엇인가요?",
+      "내가 기뻤던 순간을 말해볼까요?",
+      "어려운 일이 있을 때 어떻게 하나요?",
+      "예수님의 사랑을 나누는 방법은 무엇인가요?",
+      "나에게 가장 소중한 것은 무엇인가요?",
+      "하나님께서 나를 지켜주신 경험이 있나요?",
+      "내가 가장 감사한 친구는 누구인가요?",
+      "나의 소원은 무엇인가요?",
+      "하나님과 대화하는 나만의 방법은 무엇인가요?",
+      "내가 좋아하는 교회 활동은 무엇인가요?",
+      "어떤 상황에서 하나님께 도움을 구하나요?",
+      "나를 행복하게 하는 것은 무엇인가요?",
+      "하나님께서 내게 주신 힘은 무엇인가요?",
+      "기도할 때 내 마음은 어떻게 변하나요?",
+      "내가 생각하는 천국은 어떤 곳인가요?",
+      "예수님처럼 살려면 어떻게 해야 할까요?",
+      "어떻게 감사하는 마음을 가질 수 있을까요?",
+      "내가 가장 좋아하는 성경 말씀은?",
+      "하나님께서 내게 말씀하실 때 어떤 느낌이 드나요?",
+      "나의 꿈과 하나님은 어떻게 연결되어 있나요?",
+      "내가 도전해보고 싶은 일은 무엇인가요?",
+      "내 삶에서 하나님께 감사한 순간은 언제인가요?",
+      "내가 사랑하는 가족에게 어떤 말을 전하고 싶나요?"
     ];
 
+    // "Q. " 붙여서 새로운 배열 생성
+    const questionsWithQ = questions.map(q => "Q. " + q);
+
     const images = [
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",  // 하나님 계획
-  "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=600&q=80",  // 감사한 일
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",  // 꿈
-  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80",  // 기도 마음
-  "https://images.unsplash.com/photo-1464375117522-1311f30a8b17?auto=format&fit=crop&w=600&q=80",  // 즐거운 하루
-  "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=600&q=80",  // 감사한 교사
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80",  // 좋아하는 음식
-  "https://images.unsplash.com/photo-1467689370953-7a8425451c0a?auto=format&fit=crop&w=600&q=80",  // 도움 방법
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80",  // 특별한 점
-  "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80",  // 함께 하심
-  "https://images.unsplash.com/photo-1486308510493-cb5fb61576b1?auto=format&fit=crop&w=600&q=80",  // 주말
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",  // 좋아하는 찬양
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",  // 감사 표현
-  "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=600&q=80",  // 영화 드라마
-  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80",  // 전도
-  "https://images.unsplash.com/photo-1464375117522-1311f30a8b17?auto=format&fit=crop&w=600&q=80",  // 하나님 일
-  "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=600&q=80",  // 좋아하는 계절
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80",  // 섬기고 싶은 사역
-  "https://images.unsplash.com/photo-1467689370953-7a8425451c0a?auto=format&fit=crop&w=600&q=80",  // 기도 말
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80",  // 돌보심 이야기
-  "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80",  // 새로운 취미
-  "https://images.unsplash.com/photo-1486308510493-cb5fb61576b1?auto=format&fit=crop&w=600&q=80",  // 시간 많이 쏟는 일
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",  // 도움 청한 적
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",  // 관심 주제
-  "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=600&q=80",  // 재능 사용
-  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80",  // 감사하는 가족
-  "https://images.unsplash.com/photo-1464375117522-1311f30a8b17?auto=format&fit=crop&w=600&q=80",  // 좋았던 장소
-  "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=600&q=80",  // 하나님 알게 된 이야기
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80",  // 예수님 친구
-  "https://images.unsplash.com/photo-1467689370953-7a8425451c0a?auto=format&fit=crop&w=600&q=80",  // 성경 읽기 어려울 때
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80",  // 하나님께 바라는 것
-  "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80",  // 좋아하는 노래 장르
-  "https://images.unsplash.com/photo-1486308510493-cb5fb61576b1?auto=format&fit=crop&w=600&q=80",  // 하나님과 대화
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",  // 친절 행동
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",  // 좋아하는 운동
-  "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=600&q=80",  // 기도 제목
-  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80",  // 읽은 책
-  "https://images.unsplash.com/photo-1464375117522-1311f30a8b17?auto=format&fit=crop&w=600&q=80",  // 마음 아심
-  "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=600&q=80",  // 기억 여행지
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80",  // 고민 해결
-  "https://images.unsplash.com/photo-1467689370953-7a8425451c0a?auto=format&fit=crop&w=600&q=80",  // 좋아하는 활동
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80",  // 좋아하는 동물
-  "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80",  // 사랑 이야기
-  "https://images.unsplash.com/photo-1486308510493-cb5fb61576b1?auto=format&fit=crop&w=600&q=80",  // 기도 힘
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",  // 다른 사람으로 살기
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",  // 행복 순간
-  "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=600&q=80"   // 내일 예수님
-];
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1504384308090-6af0bdc5b17b?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1494522322223-b7e5d92694a3?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1494526585106-7c729a4f4de4?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1488347893148-9bda2efbd07e?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1494522322287-6a6141f2c18d?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1494522322297-90c29a8e8ac1?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173982-7e4a0bde2261?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173545-56acb0a1f0d2?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173429-f5ce8f1148f7?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173616-b61e65999e10?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173444-740debf4b50a?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173689-97976c6a5d7f?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173900-8a1333f2a1f6?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173929-191e55bc9b36?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071173950-1a05336ee8d2?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174004-f9f71aeb2cd7?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174028-1bbac9f4c7e2?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174065-c1848a1df2d0?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174090-5e5e7a69e1c3?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174117-6e46b6a9c2f7?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174135-63ed4c93327f?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174163-61a71bdcd3f3?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174189-5fa4233e6ac3?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174215-bd2d1e2e3c62?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174242-f350a3d3a04b?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174271-3d76c4f31a84?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174300-8d71bd61d7e2?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174325-1e6c5b25e211?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174350-7362c0f51d96?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174376-28cccb420e18?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174403-f876e3c6f965?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174430-5832e6d228ef?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174457-2cbcd6e8703f?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1468071174485-584fcbdc9ddf?auto=format&fit=crop&w=400&q=80"
+    ];
 
-    const container = document.getElementById('cardContainer');
+    const container = document.getElementById("card-container");
 
-    for(let i = 0; i < questions.length; i++) {
-      const card = document.createElement('div');
-      card.className = 'card';
+    for (let i = 0; i < questionsWithQ.length; i++) {
+      const card = document.createElement("div");
+      card.className = "card";
 
-      const cardInner = document.createElement('div');
-      cardInner.className = 'card-inner';
+      const cardInner = document.createElement("div");
+      cardInner.className = "card-inner";
 
-      const cardFront = document.createElement('div');
-      cardFront.className = 'card-front';
-      cardFront.style.backgroundImage = `url(${images[i % images.length]})`;
+      const cardFront = document.createElement("div");
+      cardFront.className = "card-front";
 
-      const cardBack = document.createElement('div');
-      cardBack.className = 'card-back';
-      cardBack.textContent = questions[i];
+      const img = document.createElement("img");
+      img.src = images[i];
+      img.alt = "Question card image " + (i + 1);
+
+      cardFront.appendChild(img);
+
+      const cardBack = document.createElement("div");
+      cardBack.className = "card-back";
+      cardBack.textContent = questionsWithQ[i];
 
       cardInner.appendChild(cardFront);
       cardInner.appendChild(cardBack);
       card.appendChild(cardInner);
 
-      card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
+      card.addEventListener("click", () => {
+        card.classList.toggle("flipped");
       });
 
       container.appendChild(card);
     }
-  });
-</script>
-
+  </script>
 </body>
 </html>
