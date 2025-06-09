@@ -11,6 +11,12 @@
       background: #f0f0f0;
       display: flex; justify-content: center; align-items: center;
       min-height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 700;
     }
     .container {
       display: grid;
@@ -74,112 +80,120 @@
   <div class="container" id="cardContainer"></div>
 
 <script>
-  const questions = const questions = [
-  "Q. 하나님이 나에게 어떤 계획이 있다고 생각하나요?",
-  "Q. 오늘 감사한 일이 무엇인가요?",
-  "Q. 지금 가지고 있는 꿈이 있나요?",
-  "Q. 기도할 때 어떤 마음이 드나요?",
-  "Q. 최근에 가장 즐겁게 보낸 하루는 어땠나요?",
-  "Q. 함께 섬기는 교사 중 감사한 분이 있다면 누구인가요?",
-  "Q. 좋아하는 음식이나 간식은 무엇인가요?",
-  "Q. 내가 다른 사람을 도울 수 있는 방법은?",
-  "Q. 하나님께서 나를 특별하게 만드신 점은?",
-  "Q. 어떤 때 하나님이 나와 함께 하신다고 느끼나요?",
-  "Q. 주말에는 보통 무엇을 하나요?",
-  "Q. 내가 좋아하는 찬양은 무엇인가요?",
-  "Q. 하나님께 감사하는 마음을 어떻게 표현하나요?",
-  "Q. 최근에 본 영화나 드라마 중 기억에 남는 게 있나요?",
-  "Q. 주위에 전도하고 싶은 사람이 있나요?",
-  "Q. 내 삶에서 하나님이 하신 일 중 가장 기억에 남는 것은?",
-  "Q. 가장 좋아하는 계절과 이유는 무엇인가요?",
-  "Q. 교회안에서 섬기고 싶은 사역이 있나요?",
-  "Q. 기도할 때 어떤 말을 하나요?",
-  "Q. 하나님이 우리를 어떻게 돌보시는지 이야기해보세요.",
-  "Q. 최근에 해 본 새로운 취미가 있나요?",
-  "Q. 하루 중 가장 많이 시간을 쏟는 일은 무었인가요?",
-  "Q. 어려울 때 하나님께 도움을 청한 적 있나요?",
-  "Q. 요즘 가장 관심 있는 주제는 무엇인가요?",
-  "Q. 내가 가진 재능을 하나님께 어떻게 사용할 수 있을까요?",
-  "Q. 내가 감사하는 가족에 대해 이야기해보세요.",
-  "Q. 최근에 가 본 장소 중 좋았던 곳은 어디인가요?",
-  "Q. 하나님을 알게 된 이야기를 나눠보세요.",
-  "Q. 예수님이 나에게 어떤 친구가 되어 주나요?",
-  "Q. 성경 읽기가 어려울 때 어떻게 해야 할까요?",
-  "Q. 내가 하나님께 바라는 것은 무엇인가요?",
-  "Q. 좋아하는 노래나 음악 장르는 무엇인가요?",
-  "Q. 하나님과 대화하는 방법을 알고 있나요?",
-  "Q. 예수님처럼 친절하게 행동한 적 있나요?",
-  "Q. 좋아하는 운동이나 활동이 있나요?",
-  "Q. 내가 하나님께 드리고 싶은 기도 제목은?",
-  "Q. 최근에 읽은 책이나 기사 중 기억에 남는 것이 있나요?",
-  "Q. 하나님이 내 마음을 어떻게 아시나요?",
-  "Q. 가장 기억에 남는 여행지는 어디인가요?",
-  "Q. 고민이 생기면 어떻게 해결하나요?",
-  "Q. 내가 교회에서 가장 좋아하는 활동은?",
-  "Q. 좋아하는 동물이나 반려동물이 있나요?",
-  "Q. 하나님께서 우리에게 주신 사랑에 대해 이야기해보세요.",
-  "Q. 기도를 통해 힘을 얻은 경험이 있나요?",
-  "Q. 일주일 동안 다른 사람으로 살 수 있다면 누구로 살고 싶나?",
-  "Q. 주중에 가장 행복했던 순간은 언제인가요?",
-  "Q. 내일 예수님이 다시 오신다면 오늘 무엇을 하고 싶나요?"
-];
+  const questions = [
+    "Q. 하나님이 나에게 어떤 계획이 있다고 생각하나요?",
+    "Q. 오늘 감사한 일이 무엇인가요?",
+    "Q. 지금 가지고 있는 꿈이 있나요?",
+    "Q. 기도할 때 어떤 마음이 드나요?",
+    "Q. 최근에 가장 즐겁게 보낸 하루는 어땠나요?",
+    "Q. 함께 섬기는 교사 중 감사한 분이 있다면 누구인가요?",
+    "Q. 좋아하는 음식이나 간식은 무엇인가요?",
+    "Q. 내가 다른 사람을 도울 수 있는 방법은?",
+    "Q. 하나님께서 나를 특별하게 만드신 점은?",
+    "Q. 어떤 때 하나님이 나와 함께 하신다고 느끼나요?",
+    "Q. 주말에는 보통 무엇을 하나요?",
+    "Q. 내가 좋아하는 찬양은 무엇인가요?",
+    "Q. 하나님께 감사하는 마음을 어떻게 표현하나요?",
+    "Q. 최근에 본 영화나 드라마 중 기억에 남는 게 있나요?",
+    "Q. 주위에 전도하고 싶은 사람이 있나요?",
+    "Q. 내 삶에서 하나님이 하신 일 중 가장 기억에 남는 것은?",
+    "Q. 가장 좋아하는 계절과 이유는 무엇인가요?",
+    "Q. 교회안에서 섬기고 싶은 사역이 있나요?",
+    "Q. 기도할 때 어떤 말을 하나요?",
+    "Q. 하나님이 우리를 어떻게 돌보시는지 이야기해보세요.",
+    "Q. 최근에 해 본 새로운 취미가 있나요?",
+    "Q. 하루 중 가장 많이 시간을 쏟는 일은 무었인가요?",
+    "Q. 어려울 때 하나님께 도움을 청한 적 있나요?",
+    "Q. 요즘 가장 관심 있는 주제는 무엇인가요?",
+    "Q. 내가 가진 재능을 하나님께 어떻게 사용할 수 있을까요?",
+    "Q. 내가 감사하는 가족에 대해 이야기해보세요.",
+    "Q. 최근에 가 본 장소 중 좋았던 곳은 어디인가요?",
+    "Q. 하나님을 알게 된 이야기를 나눠보세요.",
+    "Q. 예수님이 나에게 어떤 친구가 되어 주나요?",
+    "Q. 성경 읽기가 어려울 때 어떻게 해야 할까요?",
+    "Q. 내가 하나님께 바라는 것은 무엇인가요?",
+    "Q. 좋아하는 노래나 음악 장르는 무엇인가요?",
+    "Q. 하나님과 대화하는 방법을 알고 있나요?",
+    "Q. 예수님처럼 친절하게 행동한 적 있나요?",
+    "Q. 좋아하는 운동이나 활동이 있나요?",
+    "Q. 내가 하나님께 드리고 싶은 기도 제목은?",
+    "Q. 최근에 읽은 책이나 기사 중 기억에 남는 것이 있나요?",
+    "Q. 하나님이 내 마음을 어떻게 아시나요?",
+    "Q. 가장 기억에 남는 여행지는 어디인가요?",
+    "Q. 고민이 생기면 어떻게 해결하나요?",
+    "Q. 내가 교회에서 가장 좋아하는 활동은?",
+    "Q. 좋아하는 동물이나 반려동물이 있나요?",
+    "Q. 하나님께서 우리에게 주신 사랑에 대해 이야기해보세요.",
+    "Q. 기도를 통해 힘을 얻은 경험이 있나요?",
+    "Q. 일주일 동안 다른 사람으로 살 수 있다면 누구로 살고 싶나?",
+    "Q. 주중에 가장 행복했던 순간은 언제인가요?",
+    "Q. 내일 예수님이 다시 오신다면 오늘 무엇을 하고 싶나요?"
+  ];
 
   const images = [
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", // 산과 하늘
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80", // 바다와 파도
-  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80", // 숲속 길
-  "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=800&q=80", // 노을 풍경
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80", // 해변 모래
-  "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80", // 밤하늘 별
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80", // 숲 나무
-  "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80", // 강과 돌
-  "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80", // 잔잔한 호수
-  "https://images.unsplash.com/photo-1432836431430-8806c2174072?auto=format&fit=crop&w=800&q=80", // 산속 호수
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80", // 바다
-  "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80", // 바람 부는 들판
-  "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80", // 꽃과 나비
-  "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=800&q=80", // 나무길
-  "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80", // 파란 하늘과 구름
-  "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80", // 들판과 산
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80", // 갈대와 강
-  "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=800&q=80", // 겨울 나무
-  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80", // 숲
-  "https://images.unsplash.com/photo-1441716841578-5bc0f708f791?auto=format&fit=crop&w=800&q=80", // 바위 해변
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80", // 나무 잎
-  "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=800&q=80", // 산길
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", // 산과 하늘2
-  "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80", // 하늘 구름
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80", // 나무
-  "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80", // 들판
-  "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=800&q=80", // 겨울 나무2
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80", // 바다2
-  "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80", // 강
-  "https://images.unsplash.com/photo-1432836431430-8806c2174072?auto=format&fit=crop&w=800&q=80", // 호수2
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80", // 해변
-  "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80", // 호수3
-  "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80", // 꽃
-  "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=800&q=80", // 나무길2
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80", // 갈대
-  "https://images.unsplash.com/photo-1441716841578-5bc0f708f791?auto=format&fit=crop&w=800&q=80", // 바위 해변2
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", // 산과 하늘3
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80", // 나무2
-  "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=800&q=80", // 겨울 나무3
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80", // 바다3
-  "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80"  // 들판2
-];
-  
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1432836431430-8806c2174072?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1441716841578-5bc0f708f791?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1441716841578-5bc0f708f791?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80"
+  ];
+
   const container = document.getElementById('cardContainer');
 
-  for(let i = 0; i < questions.length; i++) {
+  for(let i=0; i<questions.length; i++) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front" style="background-image: url('${images[i]}');"></div>
-        <div class="card-back">${questions[i]}</div>
-      </div>
-    `;
+    const cardInner = document.createElement('div');
+    cardInner.className = 'card-inner';
+
+    const cardFront = document.createElement('div');
+    cardFront.className = 'card-front';
+    cardFront.style.backgroundImage = `url(${images[i % images.length]})`;
+    
+    const cardBack = document.createElement('div');
+    cardBack.className = 'card-back';
+    cardBack.textContent = questions[i];
+
+    cardInner.appendChild(cardFront);
+    cardInner.appendChild(cardBack);
+    card.appendChild(cardInner);
 
     card.addEventListener('click', () => {
       card.classList.toggle('flipped');
