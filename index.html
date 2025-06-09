@@ -6,79 +6,83 @@
   <title>운정교회 AWANA : 질문, 그리고 나눔</title>
   <style>
     body {
-      margin: 0; padding: 20px;
-      font-family: '나눔고딕', NanumGothic, sans-serif;
-      background: #f0f0f0;
-      display: flex; justify-content: center; align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
     }
     h1 {
-      margin-bottom: 20px;
-      color: #333;
-      font-weight: 700;
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+      user-select: none;
     }
-    .container {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      width: 100%;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
+      padding: 20px;
       max-width: 1200px;
+      margin: 0 auto;
     }
     .card {
       perspective: 1000px;
+      width: 100%;
+      height: 320px;
       cursor: pointer;
     }
     .card-inner {
       position: relative;
-      width: 200px;
-      height: 260px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
       transform-style: preserve-3d;
-      transition: transform 0.7s;
       border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    .card:hover .card-inner,
     .card.flipped .card-inner {
       transform: rotateY(180deg);
     }
-    .card-front, .card-back {
+    .card-front,
+    .card-back {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 12px;
+      width: 100%;
+      height: 100%;
       backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+      user-select: none;
+    }
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px;
+    }
+    .card-back {
+      background: #333;
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 15px;
-      font-size: 1.1rem;
-      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+      transform: rotateY(180deg);
       line-height: 1.4;
       box-sizing: border-box;
-      user-select: none;
-    }
-    .card-front {
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.75);
-      color: white;
-    }
-    .card-back {
-      background-color: #fff;  /* 흰 배경 */
-      color: #333;             /* 어두운 텍스트 */
-      transform: rotateY(180deg);
-      font-weight: 600;
-      padding: 20px;
-      box-shadow: inset 0 0 20px #00000020;
     }
   </style>
-</head>
-<body>
-
-  <h1>운정교회 AWANA : 질문, 그리고 나눔</h1>
-  
-  <div class="container" id="cardContainer"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".card").forEach(function (card) {
+        card.addEventListener("click", function () {
+          card.classList.toggle("flipped");
+        });
+      });
+    });
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
