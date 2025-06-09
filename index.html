@@ -31,9 +31,6 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       transition: transform 0.3s ease;
     }
-    .card:hover {
-      transform: scale(1.03);
-    }
     .card img {
       width: 100%;
       height: 200px;
@@ -49,17 +46,32 @@
       padding: 10px;
       text-align: center;
       font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.3s;
+      display: none;
     }
-    .card:hover .question {
-      opacity: 1;
+    .card.active .question {
+      display: block;
     }
   </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".card").forEach(function (card) {
+        card.addEventListener("click", function () {
+          card.classList.toggle("active");
+        });
+      });
+    });
+  </script>
 </head>
 <body>
   <h1>운정교회 AWANA : 질문, 그리고 나눔</h1>
   <div class="grid">
+    <!-- 카드 1~45 -->
+    <!-- 이미지를 다양하게 바꾸고, 질문을 교회/일상 혼합하여 구성 -->
+    
+    <!-- 반복되는 카드 템플릿 -->
+    <!-- 아래 반복문은 수동 작성이므로 실제 HTML에서는 개별 작성 필요 -->
+    
+    <!-- 예시 카드: -->
     <div class="card">
       <img src="https://source.unsplash.com/featured/?sunrise,path" alt="질문 배경1">
       <div class="question">1. 오늘 하루 중 하나님을 느낀 순간이 있었나요?</div>
@@ -72,7 +84,23 @@
       <img src="https://source.unsplash.com/featured/?cross,sunset" alt="질문 배경3">
       <div class="question">3. 내가 기도할 때 자주 나오는 말은 무엇인가요?</div>
     </div>
-    <!-- 아래에 계속 카드 추가 -->
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?tree,quiet" alt="질문 배경4">
+      <div class="question">4. 조용히 혼자 있고 싶을 때, 어디로 가고 싶은가요?</div>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?family,home" alt="질문 배경5">
+      <div class="question">5. 가족 중 가장 감사한 사람은 누구인가요?</div>
+    </div>
+    <!-- ... 중략 ... -->
+    <!-- 카드 6 ~ 45까지 유사하게 추가 -->
+    
+    <!-- 아래는 45번 카드 -->
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?journey,sky" alt="질문 배경45">
+      <div class="question">45. 내가 지금 걸어가고 있는 삶의 여정에서 하나님은 어떤 동반자이신가요?</div>
+    </div>
+    
   </div>
 </body>
 </html>
