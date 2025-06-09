@@ -14,7 +14,7 @@
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
       width: 100%;
       max-width: 1200px;
@@ -22,18 +22,18 @@
     .card {
       perspective: 1000px;
       cursor: pointer;
+      height: 280px;
     }
     .card-inner {
       position: relative;
       width: 100%;
-      padding-top: 130%;
+      height: 100%;
       transform-style: preserve-3d;
       transition: transform 0.7s;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
-    .card:hover .card-inner,
     .card.flipped .card-inner {
       transform: rotateY(180deg);
     }
@@ -47,7 +47,7 @@
       justify-content: center;
       padding: 15px;
       color: white;
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-align: center;
       line-height: 1.4;
       box-sizing: border-box;
@@ -59,21 +59,29 @@
       filter: brightness(0.75);
     }
     .card-back {
-      background-color: #1a1a1a;
+      background-color: #222;
       transform: rotateY(180deg);
       font-weight: 600;
       padding: 20px;
-      box-shadow: inset 0 0 20px #00000080;
+      box-shadow: inset 0 0 20px #000000cc;
+      color: #fff;
+      font-size: 1.05rem;
+      overflow-y: auto;
+    }
+    /* 스크롤바 간단 커스텀 */
+    .card-back::-webkit-scrollbar {
+      width: 6px;
+    }
+    .card-back::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,0.3);
+      border-radius: 3px;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="cardContainer">
-    <!-- 카드들이 여기 들어갑니다 -->
-  </div>
+  <div class="container" id="cardContainer"></div>
 
   <script>
-    // 45개 질문 목록
     const questions = [
       "Q. 하나님을 어떻게 만나고 있나요?",
       "Q. 기도할 때 가장 기억에 남는 경험은 무엇인가요?",
@@ -121,7 +129,6 @@
       "Q. 오늘 이 시간 나누고 싶은 기도 제목이 있나요?"
     ];
 
-    // 인물이 없는 자연/풍경/사물 사진 URL 45개 (unsplash)
     const images = [
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
@@ -137,50 +144,14 @@
       "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1488805990569-3c9e1d76d51c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1469840318259-f13b30b7f832?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80"
-    ];
-
-    const container = document.getElementById('cardContainer');
-
-    for(let i = 0; i < questions.length; i++) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-inner">
-          <div class="card-front" style="background-image: url('${images[i % images.length]}');"></div>
-          <div class="card-back">${questions[i]}</div>
-        </div>
-      `;
-      card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-      });
-      container.appendChild(card);
-    }
-  </script>
-</body>
-</html>
+      "https://images
